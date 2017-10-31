@@ -7,7 +7,6 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 grok.templatedir('templates')
 
-
 class ArquivarMensagemView(FaleConoscoAdminRequired, grok.View):
     grok.name('arquivar-mensagem')
     grok.require('zope2.View')
@@ -22,15 +21,15 @@ class ArquivarMensagemView(FaleConoscoAdminRequired, grok.View):
             self.message(u'Você não pode acessar essa página diretamente')
             return self._back_to_admin()
 
-        catalog = api.portal.get_tool(name='portal_catalog')
-        brain   = catalog.searchResults(UID=uids)
+        catalog= api.portal.get_tool(name='portal_catalog')
+        brain= catalog.searchResults(UID=uids)
 
         if brain:
 
-            obj = brain[0].getObject()
+            obj= brain[0].getObject()
 
             if api.content.get_state(obj) == 'respondido':
-                api.content.transition(obj=obj, transition='arquivar')
+                api.content.transition(obj=obj,transition='arquivar')
 
                 self.message('Mensagem arquivada com sucesso!')
                 return self._back_to_admin()

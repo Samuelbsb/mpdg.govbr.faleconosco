@@ -16,62 +16,48 @@ from plone.i18n.normalizer import idnormalizer
 from datetime import datetime
 from mpdg.govbr.faleconosco.browser.utilities import FluxoMensagensView
 
-
-
 grok.templatedir('templates')
 
 def make_terms(items):
     """Create zope.schema terms for vocabularies from tuples"""
-
-    terms = [
+    terms= [
         SimpleTerm(value=item[0], token=item[0], title=item[1])
         for item in items
     ]
-
     return terms
-
+    
 @grok.provider(IContextSourceBinder)
 def get_users(context):
-
-    group_users = api.user.get_users(groupname='adm-fale-conosco')
-    results     = []
-
+    group_users= api.user.get_users(groupname='adm-fale-conosco')
+    results= []
     for user in group_users:
-
         results.append(
             (user.getProperty('id'), user.getProperty('fullname'))
         )
-
-    user_vocab = schema.vocabulary.SimpleVocabulary(make_terms(results))
+    user_vocab= schema.vocabulary.SimpleVocabulary(make_terms(results))
     return user_vocab
 
-
 class IEncaminharMensagemForm(form.Schema):
-
     directives.mode(uids="hidden")
-    uids = schema.TextLine(
+    uids= schema.TextLine(
         title=u"UIDS",
         required=True
     )
-
-    usuario = schema.Choice(
+    usuario= schema.Choice(
         title=u'Encaminhar para',
         description=u'Escolha o usuario que você deseja encaminhar essa mensagem',
         required=True,
         source=get_users
     )
-
     directives.widget(mensagem='plone.app.z3cform.wysiwyg.WysiwygFieldWidget')
-    mensagem = schema.Text(
+    mensagem= schema.Text(
         title=u'Mensagem',
         required=True
     )
 
-
 @form.default_value(field=IEncaminharMensagemForm['uids'])
 def default_uids(data):
     return data.request.get('uids')
-
 
 class EncaminharMensagemView(FaleConoscoAdminRequired, FluxoMensagensView, form.SchemaForm):
     """ View para adicionar várias mensagens ao Fale Conosco
@@ -81,91 +67,64 @@ class EncaminharMensagemView(FaleConoscoAdminRequired, FluxoMensagensView, form.
     grok.require('zope2.View')
     # Quem pode acessar
     grok.context(ISiteRoot)
-
-    schema        = IEncaminharMensagemForm
-    ignoreContext = True
-    label         = u"Encaminhar Mensagem"
+    schema= IEncaminharMensagemForm
+    ignoreContext= True
+    label= u"Encaminhar Mensagem"
 
     def _back_to_admin(self, message=None):
-        portal_url = api.portal.get().absolute_url()
-        fale_conosco = '{0}/@@fale-conosco-admin/'.format(portal_url)
-
+        portal_url= api.portal.get().absolute_url()
+        fale_conosco= '{0}/@@fale-conosco-admin/'.format(portal_url)
         if message:
-
-            messages = IStatusMessage(self.request)
-            messages.add(message, type='info')
-
+            messages= IStatusMessage(self.request)
+            messages.add(message,type='info')
         return self.request.response.redirect(fale_conosco)
 
-
     def update(self):
-
         self.uids = self.request.form.get('form.widgets.uids') or self.request.form.get('uids')
-
         if self.uids:
-
-            uids    = self.uids.split(',')
-            catalog = api.portal.get_tool(name='portal_catalog')
-            search  = catalog.searchResults(
-                UID = uids
+            uids= self.uids.split(',')
+            catalog= api.portal.get_tool(name='portal_catalog')
+            search= catalog.searchResults(
+                UID= uids
             )
-
-            lista = []
-
+            lista= []
             for obj in search:
-
-                title = obj.getObject().Title()
-
+                title= obj.getObject().Title()
                 if title:
-
                     lista.append(title)
-
                 else:
-
-                    title = obj.getObject().getAssunto()
+                    title= obj.getObject().getAssunto()
                     lista.append(title)
-
-            self.results = ', '.join(lista)
-            return super(EncaminharMensagemView, self).update()
-
+            self.results= ','.join(lista)
+            return super(EncaminharMensagemView,self).update()
         else:
-
             return self._back_to_admin(u'Vocẽ não pode acessar dessa forma!')
-
     # Cria um botão no formulario
     @button.buttonAndHandler(u'Enviar')
     def handleApply(self, action):
-
-        data, errors = self.extractData()
-        # import pdb; pdb.set_trace()
-
+        data,errors = self.extractData()
         if errors:
-
             self.status = self.formErrorsMessage
             return
-
-        responsavel = data['usuario']
-        mensagem    = data['mensagem']
-        vocab       = get_users(self.context)
-        catalog     = api.portal.get_tool(name='portal_catalog')
-        uids        = self.uids.split(',')
-        brain       = catalog.searchResults(UID=uids)
-
+        responsavel= data['usuario']
+        mensagem= data['mensagem']
+        vocab= get_users(self.context)
+        catalog= api.portal.get_tool(name='portal_catalog')
+        uids= self.uids.split(',')
+        brain= catalog.searchResults(UID=uids)
         for item in brain:
-            obj      = item.getObject()
-            old_resp = obj.getResponsavel()
+            obj= item.getObject()
+            old_resp= obj.getResponsavel()
             obj.setResponsavel(responsavel)
             obj.reindexObject()
-
-            nome    = vocab.getTerm(responsavel).title
-            assunto =  obj.getAssunto()
-            email   = obj.getEmail()
-
-            id = idnormalizer.normalize(nome) + \
+            nome= vocab.getTerm(responsavel).title
+            assunto=  obj.getAssunto()
+            email= obj.getEmail()
+            id= idnormalizer.normalize(nome) + \
                 '-' + str(datetime.now().microsecond)
-            pt        = api.portal.get_tool(name='portal_types')
-            type_info = pt.getTypeInfo('Mensagem')
-            child     = type_info._constructInstance(obj, id)
+            pt= api.portal.get_tool(name='portal_types')
+            type_info= pt.getTypeInfo('Mensagem')
+            child= type_info._constructInstance(obj, id)
             child.setTitle(nome)
             child.setNome(responsavel)
             child.setEmail(email)
@@ -173,12 +132,10 @@ class EncaminharMensagemView(FaleConoscoAdminRequired, FluxoMensagensView, form.
             child.setMensagem(mensagem)
             child.setResponsavel(old_resp)
             child.reindexObject()
-
-            api.content.transition(obj=obj, transition='encaminhar')
-            api.content.transition(obj=child, transition='encaminhar')
-
+            api.content.transition(obj=obj,transition='encaminhar')
+            api.content.transition(obj=child,transition='encaminhar')
         return self._back_to_admin(u'Mensagem(s) Encaminhada(s)!')
 
     @button.buttonAndHandler(u'Descartar')
-    def handleCancel(self, action):
+    def handleCancel(self,action):
         return self._back_to_admin(u'Mensagem descartada')
