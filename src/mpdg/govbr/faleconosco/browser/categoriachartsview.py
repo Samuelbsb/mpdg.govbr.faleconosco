@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # -*- coding: iso-8859-1 -*
-# from __future__ import unicode_literals
+from __future__ import unicode_literals
 import operator
 import random
+import unicodedata 
 from unidecode import unidecode
 from unicodedata import normalize
 from five import grok
