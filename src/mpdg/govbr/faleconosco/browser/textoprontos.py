@@ -23,7 +23,7 @@ class TextosProntosView(grok.View):
                 texto_prontos = ''
 
             result.append({
-                'titulo': texto.title, 
+                'titulo': texto.title,
                 'texto': texto_prontos
              })
         return result

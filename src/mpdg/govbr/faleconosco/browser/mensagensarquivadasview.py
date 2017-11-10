@@ -40,7 +40,7 @@ class MensagensArquivadasView(grok.View):
 
             nome= ''
             obs= ''
-            if listarHistorico: 
+            if listarHistorico:
                 objHistorico= listarHistorico[0].getObject()
                 nome= objHistorico.getNome()
                 obs= objHistorico.getObservacao()

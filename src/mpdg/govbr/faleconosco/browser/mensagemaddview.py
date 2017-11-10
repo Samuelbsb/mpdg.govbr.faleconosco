@@ -35,7 +35,7 @@ class MensagemAddView(grok.View):
 
     def render(self, **kwargs):
         """
-        Este metodo tem as funcionalidades de 
+        Este metodo tem as funcionalidades de
         responder, encaminhar e resgatar.
         Só quem pode responder de fato é o Adminitrador do fale conosco,
         os demais usuários pode apenas encaminhar a resposta para o Administrador,
@@ -127,7 +127,7 @@ class MensagemAddView(grok.View):
             item.setAssunto(assunto)
             item.setMensagem(mensagem)
             #seta no objeto filho o responsável pelo encaminhamento ou seja quem está logado.
-            item.setResponsavel(userlogged) 
+            item.setResponsavel(userlogged)
             item.reindexObject()
 
             #apos criar a mensagem altera o workflow da
@@ -138,7 +138,7 @@ class MensagemAddView(grok.View):
             endereco= email
             mensagem_mail= prepare_email_message(mensagem, html=True)
             simple_send_mail(mensagem_mail, endereco, assunto)
-            status_message.add(u"Alteração realizada com sucesso!", 
+            status_message.add(u"Alteração realizada com sucesso!",
                                type=u"info")
             contextURL = self.context.absolute_url() + \
                 '/@@fale-conosco-admin?msg=' + uid

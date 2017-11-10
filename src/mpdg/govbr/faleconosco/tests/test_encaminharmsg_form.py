@@ -7,20 +7,15 @@ from plone import api
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from AccessControl import Unauthorized
-
 from mpdg.govbr.faleconosco.browser.encaminharmensagemview import IEncaminharMensagemForm, EncaminharMensagemView
 
-
 class EncaminharMsgFormTest(unittest.TestCase):
-
     layer = MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
-
     def setUp(self):
-        self.portal = self.layer['portal']
-        self.request = self.layer["request"]
+        self.portal= self.layer['portal']
+        self.request= self.layer["request"]
         alsoProvides(self.request, IFormLayer) #suitable for testing z3c.form views
-        group = api.group.create(groupname='adm-fale-conosco')
-
+        group= api.group.create(groupname='adm-fale-conosco')
         self.request.form['form.widgets.uids'] = '123123132131'
         self.view = EncaminharMensagemView(self.portal, self.request)
 
@@ -37,14 +32,11 @@ class EncaminharMsgFormTest(unittest.TestCase):
 
     def test_form_fields(self):
         """Verifica se a view possui os campos obrigatorios"""
-        expected = ['uids', 'usuario', 'mensagem']
+        expected= ['uids', 'usuario', 'mensagem']
         for field in expected:
             self.assertIn(field, self.view.schema.names())
 
-     # """Verifica se o buttão enviar está enviando dados corretamente """
+    """Verifica se o buttão enviar está enviando dados corretamente"""
      # def test_form_button(self):
      #     button = self.portal.getControl(name="Enviar")
      #     button.click()
-    
-
-    

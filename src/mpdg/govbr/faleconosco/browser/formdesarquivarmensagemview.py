@@ -36,8 +36,7 @@ class FormDesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,
     grok.name('justificar-desarquivamento-de-mensagem')
     grok.require('zope2.View')
     grok.context(ISiteRoot)
-
-    schema = IFormDesarquivarMensagemView
+    schema= IFormDesarquivarMensagemView
     ignoreContext = True
     label = u"Desarquivar Mensagem"
 
@@ -51,13 +50,12 @@ class FormDesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,
             return mensagem
 
     def update(self):
-        # Captura o UID da mensagem.
+        #Captura o UID da mensagem.
         self.uids = self.request.form.get('form.widgets.uids') or self.request.form.get('uids')
-        
-        # Retira as opões de edição da página.(Barrinha verde)
+        #Retira as opões de edição da página.(Barrinha verde)
         self.request.set('disable_border',True)
         self.request.set('disable_plone.leftcolumn',True)
-        # Checa se o UID foi setado
+        #Checa se o UID foi setado
         if not self.uids:
             return self._back_to_admin(u'Você não pode acessar essa página diretamente')
         return super(FormDesarquivarMensagemView, self).update()
@@ -69,12 +67,11 @@ class FormDesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,
     @button.buttonAndHandler(u'Enviar')
     def handleApply(self, action):
         data, errors = self.extractData()
-        # Método para pegar o portal_types, para realizar o armazenamento.
+        #Método para pegar o portal_types, para realizar o armazenamento.
         pt= getToolByName(self.context, 'portal_types')
 
         if errors:
             self.status = self.formErrorsMessage
-
         msg= data['observacao']
         nome= api.user.get_current().id # Pega o id do usuário logado.
         catalog= api.portal.get_tool(name='portal_catalog')
@@ -87,9 +84,7 @@ class FormDesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,
             # Cria o objeto historico dentro do tipo de conteudo FaleConosco
             id= idnormalizer.normalize(nome) + \
                     '-' + str(datetime.now().microsecond)
-
             type_info = pt.getTypeInfo('Historico')
-
             item= type_info._constructInstance(fale, id)
             item.setNome(nome)
             item.setEstado('desarquivado')
