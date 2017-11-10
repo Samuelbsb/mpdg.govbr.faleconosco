@@ -36,8 +36,6 @@
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-
-
  </state>
  <state state_id="novo" title="Nova Mensagem" >
   <exit-transition transition_id="encaminhar" />
@@ -162,7 +160,7 @@
   </guard>
 
  </transition>
- 
+
  <worklist worklist_id="reviewer_queue" title="" >
   <description>Reviewer tasks</description>
   <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>

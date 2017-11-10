@@ -167,8 +167,6 @@
             }
         });
 
-        
-
         $('input.fale-usuario').prepOverlay({
             subtype: 'ajax',
             filter: '#content>*',
