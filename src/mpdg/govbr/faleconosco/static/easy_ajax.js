@@ -40,7 +40,7 @@ $(document).ready(function () {
                     }
                     if(ajax_evaljs) {
                         $.get(ajax_evaljs, function(result){
-                           $.globalEval(result); 
+                           $.globalEval(result);
                         });
                     }
                     $container_ajax.html(data);
