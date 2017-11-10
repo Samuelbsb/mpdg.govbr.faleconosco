@@ -62,7 +62,6 @@
                   </div>
                 </tal:repeat>
             </div>
-            
         </div>
     </div>
     </tal:repeat>
