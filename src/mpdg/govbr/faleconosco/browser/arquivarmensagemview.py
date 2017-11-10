@@ -36,7 +36,7 @@ class ArquivarMensagemView(FaleConoscoAdminRequired, grok.View):
         p_url  = api.portal.get().absolute_url()
         target = '{0}/@@fale-conosco-admin'.format(p_url)
         return self.request.response.redirect(target)
-    
+
     def message(self, mensagem):
         messages= IStatusMessage(self.request)
         messages.add(mensagem, type='info')
