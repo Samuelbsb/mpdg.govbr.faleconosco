@@ -87,7 +87,7 @@ class FaleConoscoForms(unittest.TestCase):
     #         # Fill in the search field
     #         input = form.getControl(name="SearchableText")
     #         input.value = search_terms
-    #         # Envie o formulário 
+    #         # Envie o formulário
     #         form.submit(u"Search")
     #     button = form.getControl(name="mybuttonname")
     #     button.click()
@@ -106,4 +106,4 @@ class FaleConoscoForms(unittest.TestCase):
             # test detecta uma exceção sem uma classe base (WTF)
             import sys
             exception = sys.exc_info()[0]
-        self.assertFalse(exception is None) 
+        self.assertFalse(exception is None)
