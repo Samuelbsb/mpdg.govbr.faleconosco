@@ -43,10 +43,9 @@ class DesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,grok
             self.message('Mensagem não pode ser encontrada')
             return self._back_to_admin()
 
-
     def _back_to_admin(self):
-        p_url = api.portal.get().absolute_url()
-        target = '{0}/@@mensagens-arquivadas-admin'.format(p_url)
+        p_url= api.portal.get().absolute_url()
+        target= '{0}/@@mensagens-arquivadas-admin'.format(p_url)
         return self.request.response.redirect(target)
 
     def message(self,mensagem):

@@ -22,7 +22,6 @@ class IEncaminharAdminForm(form.Schema):
     uids= schema.TextLine(title=u"UIDS",required=True)
     mensagem= schema.Text(title=u"Mensagem:",required=True)
 
-
 @form.default_value(field=IEncaminharAdminForm['uids'])
 def default_uids(data):
     return data.request.get('uids')
@@ -42,7 +41,6 @@ class EncaminharAdminView(FaleConoscoAdminRequired, FluxoMensagensView, form.Sch
     label= u"Encaminhar a mensagem para o administrador do Fale Conosco."
 
     def responsavel(self):
-
         # fazer busca e retornar assunto da msg
         catalog= api.portal.get_tool(name='portal_catalog')
         brain= catalog.searchResults(UID=self.uids)
@@ -52,7 +50,6 @@ class EncaminharAdminView(FaleConoscoAdminRequired, FluxoMensagensView, form.Sch
             return oldresponsavel
 
     def _back_to_admin(self,message=None):
-
         portal_url= api.portal.get().absolute_url()
         fale_conosco= '{0}/@@fale-conosco-admin/'.format(portal_url)
         if message:

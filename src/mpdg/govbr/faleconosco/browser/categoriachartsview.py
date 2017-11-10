@@ -12,8 +12,6 @@ from Products.CMFCore.interfaces import ISiteRoot
 from mpdg.govbr.faleconosco.browser import falecategorizar
 
 grok.templatedir('templates')
-
-
 class CategoriaChartsView(grok.View):
     """ view para os gráficos
     """
@@ -155,7 +153,7 @@ class CategoriaChartsView(grok.View):
         """
         result= []
         for elem in range(0, self.qtd):
-            cor = '#{:02x}{:02x}{:02x}'.format(*map(lambda x: random.randint(0, 255), range(0,10)))
+            cor= '#{:02x}{:02x}{:02x}'.format(*map(lambda x: random.randint(0, 255), range(0,10)))
             result.append(cor)
         return result
 
