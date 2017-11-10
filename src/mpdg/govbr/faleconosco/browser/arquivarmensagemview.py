@@ -31,7 +31,7 @@ class ArquivarMensagemView(FaleConoscoAdminRequired, grok.View):
             self.message('Não foi encontrada nenhuma mensagem com esse UID')
             return self._back_to_admin()
         return super(ArquivarMensagemView, self).update()
-    
+
     def _back_to_admin(self):
         p_url  = api.portal.get().absolute_url()
         target = '{0}/@@fale-conosco-admin'.format(p_url)
