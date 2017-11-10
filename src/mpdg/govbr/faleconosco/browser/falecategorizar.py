@@ -16,7 +16,7 @@ class FaleCategorizar(FaleConoscoAdminRequired, grok.View):
     def update(self):
         self.fale_uid= self.request.form['fale_uid']
         categorias= self.request.form['tags']
-        self.categorias= categorias.split(',') 
+        self.categorias= categorias.split(',')
         return self.buscar()
 
     def buscar(self):

@@ -23,7 +23,7 @@ class DesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,grok
             mensagem= form.getAssunto()
             return mensagem
 
-    def update(self): 
+    def update(self):
         uids= self.request.form.get('uids')
         if not uids:
             self.message('Você não pode acessar a página diretamente')
@@ -38,7 +38,7 @@ class DesarquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView ,grok
             # obj.reindexObject()
             catalog.reindexObject(obj)
             self.message('Mensagem desarquivada com sucesso')
-            return self._back_to_admin()            
+            return self._back_to_admin()
         else:
             self.message('Mensagem não pode ser encontrada')
             return self._back_to_admin()

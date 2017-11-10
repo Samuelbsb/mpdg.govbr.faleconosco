@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import operator
 import random
-import unicodedata 
+import unicodedata
 from unidecode import unidecode
 from unicodedata import normalize
 from five import grok
@@ -20,7 +20,7 @@ class CategoriaChartsView(grok.View):
     grok.context(ISiteRoot)
 
     def update(self):
-        qtd_get= int(self.request.form.get('qtd', 10))
+        qtd_get= int(self.request.form.get('qtd',10))
         self.qtd= qtd_get if qtd_get >= 0 else 0
         self.tagdict= self.get_tags_dict()
         self.taglist= self.get_tags_list()

@@ -22,8 +22,8 @@ grok.templatedir('templates')
 class IFormArquivarMensagemView(form.Schema):
     # Criando os campos do formulário
     directives.mode(uids='hidden')
-    uids       = schema.TextLine(title=u"UIDS", required=True)
-    observacao = schema.Text(title=u"Motivo:", required=True)
+    uids= schema.TextLine(title=u"UIDS", required=True)
+    observacao= schema.Text(title=u"Motivo:", required=True)
 
 # Renderizando o formulário
 @form.default_value(field=IFormArquivarMensagemView['uids'])
@@ -38,7 +38,7 @@ class FormArquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView,form
     grok.require('zope2.View')
     grok.context(ISiteRoot)
 
-    schema = IFormArquivarMensagemView
+    schema= IFormArquivarMensagemView
     ignoreContext = True
 
     label = u"Arquivar Mensagem"
@@ -48,14 +48,14 @@ class FormArquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView,form
         catalog = api.portal.get_tool(name='portal_catalog')
         brain   = catalog.searchResults(UID=self.uids)
         if brain:
-            form     = brain[0].getObject()
-            mensagem = form.getAssunto()
+            form= brain[0].getObject()
+            mensagem= form.getAssunto()
             return mensagem
 
     def update(self):
         # Captura o UID da mensagem.
         self.uids = self.request.form.get('form.widgets.uids') or self.request.form.get('uids')
-        
+
         # Retira as opões de edição da página.(Barrinha verde)
         self.request.set('disable_border', True)
         self.request.set('disable_plone.leftcolumn', True)
@@ -77,10 +77,10 @@ class FormArquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView,form
         if errors:
             self.status = self.formErrorsMessage
 
-        msg        = data['observacao']
-        nome       = api.user.get_current().id # Pega o id do usuário logado.
-        catalog    = api.portal.get_tool(name='portal_catalog')
-        brain      = catalog.searchResults(UID=self.uids)
+        msg= data['observacao']
+        nome= api.user.get_current().id # Pega o id do usuário logado.
+        catalog= api.portal.get_tool(name='portal_catalog')
+        brain= catalog.searchResults(UID=self.uids)
 
         if brain:
             fale = brain[0].getObject()
@@ -110,11 +110,9 @@ class FormArquivarMensagemView(FaleConoscoAdminRequired, FluxoMensagensView,form
     def _back_to_admin(self, message=None):
         portal_url = api.portal.get().absolute_url()
         fale_conosco = '{0}/@@fale-conosco-admin/'.format(portal_url)
-
         if message:
             messages = IStatusMessage(self.request)
             messages.add(message, type='info')
-
         return self.request.response.redirect(fale_conosco)
 
     def message(self, mensagem):

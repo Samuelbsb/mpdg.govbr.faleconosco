@@ -26,7 +26,6 @@ class IEncaminharAdminForm(form.Schema):
 def default_uids(data):
     return data.request.get('uids')
 
-
 class EncaminharAdminView(FaleConoscoAdminRequired, FluxoMensagensView, form.SchemaForm):
     """ View para adicionar várias mensagens ao Fale Conosco
     """

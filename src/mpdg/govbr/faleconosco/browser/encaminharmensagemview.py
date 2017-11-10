@@ -25,7 +25,7 @@ def make_terms(items):
         for item in items
     ]
     return terms
-    
+
 @grok.provider(IContextSourceBinder)
 def get_users(context):
     group_users= api.user.get_users(groupname='adm-fale-conosco')
