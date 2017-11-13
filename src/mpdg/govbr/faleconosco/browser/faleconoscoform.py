@@ -21,7 +21,6 @@ from mpdg.govbr.faleconosco.browser.utilities import transform_message, get_fale
 
 grok.templatedir('templates')
 
-
 class IFaleConoscoForm(model.Schema):
     nome     = schema.TextLine(title=u"Nome", required=True , max_length=50)
     email    = schema.TextLine(title=u"E-mail", required=True)
@@ -87,28 +86,30 @@ class FaleConoscoForm(form.SchemaForm):
 
     @button.buttonAndHandler(u'Enviar')
     def handleApply(self, action):
-        data, errors= self.extractData()
+        data, errors = self.extractData()
         if errors:
-            self.status= self.formErrorsMessage
+            self.status = self.formErrorsMessage
             return
-        nome= data['nome']
-        email= data['email']
-        assunto= data['assunto']
-        mensagem= data['mensagem']
 
 
-        adm_fale= get_fale_config('admfale')
-        responsavel= adm_fale or u'idg'
+        nome     = data['nome']
+        email    = data['email']
+        assunto  = data['assunto']
+        mensagem = data['mensagem']
 
-        portal= api.portal.get()
+
+        adm_fale = get_fale_config('admfale')
+        responsavel = adm_fale or u'idg'
+
+        portal = api.portal.get()
         # os dados serão guardados no Annotation para serem recuperados mais tarde para a criacao do fale conosco
-        annotation= IAnnotations(portal)
-        dados_fale= {}
+        annotation = IAnnotations(portal)
+        dados_fale = {}
         try:
             fale = annotation[KEY_CONFIRMA]
         except KeyError:
             fale = []
-        hash= hashlib.sha1(str(random.random())).hexdigest()
+        hash = hashlib.sha1(str(random.random())).hexdigest()
 
         dados_fale['hash'] = hash
         conteudo = {
@@ -121,19 +122,18 @@ class FaleConoscoForm(form.SchemaForm):
         dados_fale['conteudo'] = conteudo
         fale.append(dados_fale)
         annotation[KEY_CONFIRMA] = fale
-
-        url_confirm= portal.absolute_url() + '/fale_confirma?h=' + hash
-        endereco= email
-        texto= self.get_message(
+        url_confirm = portal.absolute_url() + '/fale_confirma?h=' + hash
+        endereco = email
+        texto = self.get_message(
             text=get_fale_config('enviar_email_form'),
             nome=nome,
-            email=email,
-            mensagem= mensagem,
+            email =email,
+            mensagem = mensagem,
             url_confirm=url_confirm,
-            assunto= assunto
+            assunto = assunto
         )
         # texto = EMAIL_FALE % url_confirm
-        mensagem= prepare_email_message(texto, html=True)
+        mensagem = prepare_email_message(texto, html=True)
         simple_send_mail(mensagem, endereco, assunto)
 
         dados = urllib.urlencode(conteudo)
