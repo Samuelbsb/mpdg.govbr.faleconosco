@@ -39,7 +39,7 @@ class MensagemAddView(grok.View):
         }
 
     def render(self, **kwargs):
-    # Este metodo tem as funcionalidades de 
+    # Este metodo tem as funcionalidades de
     # responder, encaminhar e resgatar.
     # Só quem pode responder de fato é o Adminitrador do fale conosco,
     # os demais usuários pode apenas encaminhar a resposta para o Administrador,
