@@ -17,7 +17,6 @@ from zope.component import getSiteManager
 from AccessControl import Unauthorized
 from mpdg.govbr.faleconosco.testing import MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
 
-
 class FaleConoscoForms(unittest.TestCase):
 
     layer = MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
@@ -63,57 +62,40 @@ class FaleConoscoForms(unittest.TestCase):
             self.assertIn(field, self.view.schema.names())
 
     # def logoutWithTestBrowser(self):
-
     #     browser = Browser(self.app)
     #     self.browser.open(self.portal.absolute_url() + '/logout')
-            
     #     html = self.browser.contents
-
     #     self.assertTrue("You are now logged out" in html)
-
     #     print browser.contents # O navegador é instância zope.testbrowser.Browser
-            
     #     form = browser.getForm(index=2) # Salte o login e o formulário de pesquisa no Plone 4
-
     #         # Obter o formulário de login do zope.testbrowser
     #     login_form = self.browser.getForm('login_form')
     #         # get and print all controls
     #     controls = login_form.mech_form.controls
     #     for control in controls:
     #         print "%s: %s" % (control.attrs['name'], control.attrs['type'])
-
     #     for c in form.mech_form.controls: print c
     #     print browser.contents
-
     #     self.browser.open(self.portal.absolute_url() + "/search")
-
     #     # Insira alguns valores para a pesquisa que vemos que recebemos
-
     #     for search_terms in [u"Plone", u"youcantfindthis"]:
     #         form = self.browser.getForm("searchform")
-
     #         # Fill in the search field
     #         input = form.getControl(name="SearchableText")
     #         input.value = search_terms
-
     #         # Envie o formulário 
     #         form.submit(u"Search")
-
     #     button = form.getControl(name="mybuttonname")
     #     button.click()
-
     #     login_form = self.browser.getForm('login_form')
     #     login_form.submit('Log in')
-
 
     def test_anon_access_forum(self):
         """
         Os usuários anônimos não devem ser capazes de abrir a página do fórum
         """
-
         self.portal.error_log._ignored_exceptions = ()
         self.portal.acl_users.credentials_cookie_auth.login_path = ""
-
         exception = None
         try:
             self.browser.open(self.portal.intranet.forum.absolute_url())
@@ -122,5 +104,4 @@ class FaleConoscoForms(unittest.TestCase):
             # test detecta uma exceção sem uma classe base (WTF)
             import sys
             exception = sys.exc_info()[0]
-
         self.assertFalse(exception is None) 

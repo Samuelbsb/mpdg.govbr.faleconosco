@@ -15,7 +15,6 @@ class TextosProntosViewTest(unittest.TestCase):
 
     layer = MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
 
-
     def setUp(self):
         app = self.layer['app']
         self.portal = self.layer['portal']
@@ -31,14 +30,10 @@ class TextosProntosViewTest(unittest.TestCase):
     def test_view_textosprontos(self):
         view = self.portal.restrictedTraverse('@@textos-prontos')
         self.assertTrue(view)
-   
-    
     # # Teste de Mensagem do TextosProntosViewTest
     # def test_mime_icon_odt_for_file_(self):
-       
     #     self.browser.open(self.portal_url)
     #     self.browser.getLink('view').click()
-
     #     widget = 'form.widgets.title'
     #     self.browser.getControl(name=widget).value = 'My file'
     #     widget = 'form.widgets.description'

@@ -2,7 +2,6 @@
 import unittest
 from mpdg.govbr.faleconosco.testing import MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
 
-
 class ArquivarMensagemViewTest(unittest.TestCase):
 
     layer = MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING

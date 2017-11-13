@@ -7,9 +7,7 @@ from plone import api
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from AccessControl import Unauthorized
-
 from mpdg.govbr.faleconosco.browser.encaminharmensagemview import IEncaminharMensagemForm, EncaminharMensagemView
-
 
 class EncaminharMsgFormTest(unittest.TestCase):
 
@@ -23,7 +21,6 @@ class EncaminharMsgFormTest(unittest.TestCase):
 
         self.request.form['form.widgets.uids'] = '123123132131'
         self.view = EncaminharMensagemView(self.portal, self.request)
-
 
     def test_view_is_protected(self):
         """Somente admin do fale ou manager pode acessar essa view"""
@@ -45,6 +42,3 @@ class EncaminharMsgFormTest(unittest.TestCase):
      # def test_form_button(self):
      #     button = self.portal.getControl(name="Enviar")
      #     button.click()
-    
-
-    

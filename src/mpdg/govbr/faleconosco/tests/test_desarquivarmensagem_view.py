@@ -22,11 +22,9 @@ class DesarquivarMensagemViewTest(unittest.TestCase):
         self.assertTrue(view)
 
 
-
     """Somente admin do fale ou manager pode acessar essa view"""
     # def test_view_is_protected(self):
     #     self.assertRaises(Unauthorized, self.view.update)
-        
     """ buttão enviar está enviando o conteúdo """
 
     # def test_buttão_view(self):

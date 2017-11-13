@@ -5,7 +5,6 @@ from AccessControl import Unauthorized
 from mpdg.govbr.faleconosco.browser.mensagensarquivadasview import MensagensArquivadasView
 from plone import api
 
-
 class MensagensArquivadasViewTest(unittest.TestCase):
 
     layer = MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
@@ -15,7 +14,7 @@ class MensagensArquivadasViewTest(unittest.TestCase):
         self.request = self.layer["request"]
         # self.view = MensagensArquivadasView(self.portal, self.request)
         # group = api.group.create(groupname='adm-fale-conosco')
-    
+
     def test_view_mensagensarquivadas(self):
         view = self.portal.restrictedTraverse('@@mensagens-arquivadas-admin')
         self.assertTrue(view)
