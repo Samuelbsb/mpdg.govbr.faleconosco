@@ -6,7 +6,6 @@ from Products.statusmessages.interfaces import IStatusMessage
 from plone.directives import form
 from zope import schema
 from z3c.form import button
-from plone.autoform import directive
 from mpdg.govbr.faleconosco.browser.utilities import FaleConoscoAdminRequired
 from DateTime.DateTime import DateTime
 from datetime import datetime
