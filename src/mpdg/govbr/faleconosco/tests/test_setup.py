@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from plone import api
-from mpdg.govbr.faleconosco.testing import MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING  #noqa
+from mpdg.govbr.faleconosco.testing import MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING  # noqa
+
 import unittest
+
 
 class TestSetup(unittest.TestCase):
     """Test that mpdg.govbr.faleconosco is properly installed."""
+
     layer = MPDG_GOVBR_FALECONOSCO_INTEGRATION_TESTING
+
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer['portal']
