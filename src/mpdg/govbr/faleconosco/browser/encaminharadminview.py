@@ -22,11 +22,9 @@ class IEncaminharAdminForm(form.Schema):
     uids       = schema.TextLine(title=u"UIDS", required=True)
     mensagem   = schema.Text(title=u"Mensagem:", required=True)
 
-
-@form.default_value(field=IEncaminharAdminForm['uids'])
-def default_uids(data):
-    return data.request.get('uids')
-
+    @form.default_value(field=IEncaminharAdminForm['uids'])
+    def default_uids(data):
+        return data.request.get('uids')
 
 class EncaminharAdminView(FaleConoscoAdminRequired, FluxoMensagensView, form.SchemaForm):
     """ View para adicionar várias mensagens ao Fale Conosco
@@ -36,21 +34,17 @@ class EncaminharAdminView(FaleConoscoAdminRequired, FluxoMensagensView, form.Sch
     grok.require('zope2.View')
     # Quem pode acessar
     grok.context(ISiteRoot)
-
     schema        = IEncaminharAdminForm
     ignoreContext = True
     label         = u"Encaminhar a mensagem para o administrador do Fale Conosco."
 
     def responsavel(self):
-
         # fazer busca e retornar assunto da msg
-        catalog = api.portal.get_tool(name='portal_catalog')
-        brain   = catalog.searchResults(UID=self.uids)
-
+        catalog= api.portal.get_tool(name='portal_catalog')
+        brain= catalog.searchResults(UID=self.uids)
         if brain:
-
-            form           = brain[0].getObject()
-            oldresponsavel = form.getResponsavel()
+            form= brain[0].getObject()
+            oldresponsavel= form.getResponsavel()
             return oldresponsavel
 
     def _back_to_admin(self, message=None):
