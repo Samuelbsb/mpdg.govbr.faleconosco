@@ -24,7 +24,6 @@ class CategoriaChartsView(FaleConoscoAdminRequired, grok.View):
 
 
     def update(self, **kwargs):
-    super().update(**kwargs):
         qtd_get = int(self.request.form.get('qtd', 10))
         self.qtd = qtd_get if qtd_get >= 0 else 0
         self.tagdict = self.get_tags_dict()
