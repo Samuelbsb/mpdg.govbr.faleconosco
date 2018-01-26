@@ -18,7 +18,7 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - firefox -v
-
+  - bin/flake8 --ignore=C901 --count src
 script:
 - bin/code-analysis
 - bin/test
