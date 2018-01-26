@@ -264,4 +264,4 @@ class FaleConoscoAdminView(FaleConoscoAdminRequired, grok.View):
                 else:
                     return False
 
-return False
+        return False
