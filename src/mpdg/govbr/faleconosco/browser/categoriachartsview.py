@@ -15,11 +15,11 @@ from mpdg.govbr.faleconosco.browser import falecategorizar
 grok.templatedir('templates')
 
 
-class CategoriaChartsView(grok.View):
+class CategoriaChartsView(FaleConoscoAdminRequired, grok.View):
     """ view para os gráficos
     """
     grok.name('categoria-charts-view')
-    grok.require('zope2.View')
+    grok.require('cmf.ManagePortal')
     grok.context(ISiteRoot)
 
 
