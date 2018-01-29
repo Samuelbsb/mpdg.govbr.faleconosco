@@ -15,7 +15,7 @@ from mpdg.govbr.faleconosco.browser import falecategorizar
 grok.templatedir('templates')
 
 
-class CategoriaChartsView(FaleConoscoAdminRequired, grok.View):
+class CategoriaChartsView(grok.View):
     """ view para os gráficos
     """
     grok.name('categoria-charts-view')
