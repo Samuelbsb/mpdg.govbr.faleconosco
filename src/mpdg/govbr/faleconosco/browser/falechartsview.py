@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import pandas as pd
 from pandas.tseries.offsets import BDay
 from DateTime import DateTime
@@ -18,7 +17,6 @@ grok.templatedir('templates')
 class FaleChartsView(FaleConoscoAdminRequired, grok.View):
     """ view para os gráficos
     """
-
     grok.name('fale-conosco-charts')
     grok.require('cmf.ManagePortal')
     grok.context(ISiteRoot)
