@@ -13,7 +13,7 @@ install:
   - python bootstrap.py
   - bin/buildout annotate
   - bin/buildout
-  - flake8 --max-complexity=10 --select=C distarray
+
 
 before_script:
   - export DISPLAY=:99.0
